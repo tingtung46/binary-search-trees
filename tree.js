@@ -92,4 +92,31 @@ export default class Tree {
 
     return node;
   }
+
+  levelOrder(callback) {
+    if (!this.root) return [];
+
+    const queue = [];
+    const result = [];
+
+    queue.push(this.root);
+
+    while (queue.length) {
+      let level = [];
+      let size = queue.length;
+
+      for (let i = 0; i < size; i++) {
+        const nextNode = queue.shift();
+        level.push(nextNode.data);
+
+        if (nextNode.left) queue.push(nextNode.left);
+        if (nextNode.right) queue.push(nextNode.right);
+        if (callback) callback(nextNode);
+      }
+
+      result.push(level);
+    }
+
+    if (!callback) return result;
+  }
 }
