@@ -180,4 +180,37 @@ export default class Tree {
 
     return Math.max(leftHeight, rightHeight) + 1;
   }
+
+  depth(node, root = this.root, level = 0) {
+    if (!node) return null;
+    if (root === null) return 0;
+    if (root.data === node.data) return level;
+
+    let count = this.depth(node, root.left, level + 1);
+
+    if (count !== 0) return count;
+
+    return this.depth(node, root.left, level + 1);
+  }
+
+  isBalanced(node = this.root) {
+    if (node === null) return true;
+
+    const heightDiff = Math.abs(
+      this.height(node.left) - this.height(node.right)
+    );
+
+    return (
+      heightDiff <= 1 &&
+      this.isBalanced(node.left) &&
+      this.isBalanced(node.right)
+    );
+  }
+
+  rebalance() {
+    if (this.root === null) return;
+
+    const newArr = [...new Set(this.inorder())].sort((a, b) => a - b);
+    this.root = this.buildTree(newArr);
+  }
 }
