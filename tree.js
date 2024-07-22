@@ -140,4 +140,15 @@ export default class Tree {
 
     if (!callback) return result;
   }
+
+  inorder(callback, node = this.root, result = []) {
+    if (!this.root) return [];
+    if (node === null) return;
+
+    this.inorder(callback, node.left, result);
+    callback ? callback(node) : result.push(node.data);
+    this.inorder(callback, node.right, result);
+
+    if (result) return result;
+  }
 }
