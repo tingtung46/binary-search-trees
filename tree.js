@@ -169,6 +169,6 @@ export default class Tree {
       result.push(nextNode.data);
     }
 
-    if (!callback) return result;
+    if (!callback) return result.reverse();
   }
 }
