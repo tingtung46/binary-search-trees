@@ -79,4 +79,17 @@ export default class Tree {
 
     return minV;
   }
+
+  find(value, root = this.root) {
+    const node = root;
+
+    if (node === null) return null;
+    if (value !== node.data) {
+      return value < node.data
+        ? this.find(value, node.left)
+        : this.find(value, node.right);
+    }
+
+    return node;
+  }
 }
