@@ -49,4 +49,34 @@ export default class Tree {
     if (value < prev.data) prev.left = node;
     if (value > prev.data) prev.right = node;
   }
+
+  delete(value, root = this.root) {
+    if (root === null) return root;
+
+    if (value < root.data) root.left = this.delete(value, root.left);
+    if (value > root.data) root.right = this.delete(value, root.right);
+    //if value is same as root's data, then this is the node that need to be deleted
+    else {
+      if (root.left === null) return root.right;
+      if (root.right === null) return root.left;
+
+      //node with two children: get the inorder successor (smallest in the right subtree)
+      root.data = this.minValue(root.right);
+
+      //delete the inorder successor
+      root.right = this.delete(root.data, root.right);
+    }
+
+    return root;
+  }
+
+  minValue(node) {
+    let minV = node.data;
+    while (node.left !== null) {
+      minV = node.left.data;
+      node = node.left;
+    }
+
+    return minV;
+  }
 }
