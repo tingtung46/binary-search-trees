@@ -8,7 +8,7 @@ export default class Tree {
   buildTree(array) {
     if (array.length < 1) return null;
 
-    const newArr = [...new Set(array)].sort();
+    const newArr = [...new Set(array)].sort((a, b) => a - b);
 
     let start = 0;
     let end = newArr.length - 1;
